@@ -1,0 +1,79 @@
+.card {
+  max-width: 10.2rem;
+  min-width: 6.1rem;
+  /* border: 1px solid red; */
+  border-radius: 0.7rem;
+  margin-bottom: 1.4rem;
+  margin-left: 0.7rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  /* overflow: hidden; */
+  position: relative;
+  box-shadow: 0px 0px 0.995rem 0.35rem rgb(10, 10, 10);
+  transition: all 1s ease;
+}
+
+.subtittle {
+  display: flex;
+  flex-direction: column;
+}
+.subtittle h4 {
+  padding: 0.35rem 0px;
+  font-weight: 500;
+  text-align: center;
+  color: rgb(243, 239, 239);
+  text-transform: capitalize;
+}
+.subtittle ul {
+  display: flex;
+  justify-content: space-evenly;
+}
+.subtittle ul li {
+  list-style: none;
+  text-transform: uppercase;
+  padding: 0.12rem 0.12rem;
+}
+.card:hover {
+  box-shadow: 0px 0px 0.5rem 0.18rem rgb(187, 182, 182);
+}
+.pageTittle {
+  color: white;
+  text-transform: uppercase;
+  text-align: center;
+  margin-bottom: 1.1rem;
+  font-size: 3vh;
+  text-shadow: -2px -1px 1px rgb(204, 185, 185);
+}
+.badge {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  padding: 0.35rem 0.7rem;
+  border-radius: 50%;
+  background: #1266f1;
+  color: white;
+}
+.poster {
+  border-radius: 10px;
+  width: 100%;
+  height: 100%;
+  /* position: absolute;
+  top: 1px;
+  right: 1px; */
+}
+.badge-1 {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  padding: 0.35rem 0.7rem;
+  border-radius: 50%;
+  background: rgb(255, 54, 54);
+  color: white;
+}
+@media (max-width: 600px) {
+  .card {
+    max-width: 8rem;
+  }
+}
