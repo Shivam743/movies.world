@@ -18,7 +18,6 @@ export default function Random() {
         `https://api.themoviedb.org/3/${media_type}/${id}?api_key=c75430675bfaac5554a02c34599115cc&language=en-US`
       );
       setContent(data);
-      console.log("geners onclicked movie",data.genres)
     } catch (error) {
       console.log("error found", error);
     }
