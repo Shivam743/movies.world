@@ -12,31 +12,39 @@ export default function Random() {
   const [Content, setContent] = useState([]);
   const [video, setVideo] = useState("");
 
+  const fetchData = async () => {
+    try {
+      const { data } = await axios.get(
+        `https://api.themoviedb.org/3/${media_type}/${id}?api_key=c75430675bfaac5554a02c34599115cc&language=en-US`
+      );
+      setContent(data);
+      console.log("geners onclicked movie",data.genres)
+    } catch (error) {
+      console.log("error found", error);
+    }
+  };
+  const fetchvideo = async () => {
+    try {
+      const { data } = await axios.get(
+        `https://api.themoviedb.org/3/${media_type}/${id}/videos?api_key=c75430675bfaac5554a02c34599115cc&language=en-US`
+      );
+      setVideo(data?.results[0]?.key);
+    } catch (error) {
+      console.log("error found", error);
+    }
+  };
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const { data } = await axios.get(
-          `https://api.themoviedb.org/3/${media_type}/${id}?api_key=c75430675bfaac5554a02c34599115cc&language=en-US`
-        );
-  
-        setContent(data);
-      } catch (error) {
-        console.log("error found", error);
-      }
+    let isMounted = true;
+    if (isMounted) {
+      fetchvideo();
+      fetchData();
+    }
+    return () => {
+      isMounted = false;
     };
-    const fetchvideo = async () => {
-      try {
-        const { data } = await axios.get(
-          `https://api.themoviedb.org/3/${media_type}/${id}/videos?api_key=c75430675bfaac5554a02c34599115cc&language=en-US`
-        );
-        setVideo(data?.results[0]?.key);
-      } catch (error) {
-        console.log("error found", error);
-      }
-    };
-    fetchvideo();
-    fetchData();
-  }, [id,media_type]);
+  },
+  // eslint-disable-next-line 
+  [id, media_type]);
 
   const year = Content.release_date || Content.first_air_date;
 
@@ -108,7 +116,9 @@ export default function Random() {
           </li>
 
           <li className="list" style={{ textAlign: "center" }}>
-            <a href={Content.homepage}>offical page</a>
+            <a href={Content.homepage} target="_blank" rel="noreferrer">
+              offical page
+            </a>
           </li>
           <br />
           <li

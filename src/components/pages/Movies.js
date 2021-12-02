@@ -13,24 +13,27 @@ export default function Movies() {
   const [SelectedGenres, setSelectedGenres] = useState([]);
   const GenreForUrl = UseGenres(SelectedGenres);
 
+  const fatchMovies = async () => {
+    try {
+      const { data } = await axios.get(
+        `https://api.themoviedb.org/3/discover/movie?api_key=c75430675bfaac5554a02c34599115cc&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${Page}&with_genres=${GenreForUrl}`
+      );
+
+      setContent(data.results);
+      setTotalPage(data.total_pages);
+    } catch (error) {
+      console.log("page not found");
+    }
+  };
   useEffect(() => {
-    const fatchMovies = async () => {
-      try {
-        const { data } = await axios.get(
-          `https://api.themoviedb.org/3/discover/movie?api_key=c75430675bfaac5554a02c34599115cc&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${Page}&with_genres=${GenreForUrl}`
-        );
-        setContent(data.results);
-        setTotalPage(data.total_pages);
-      } catch (error) {
-        console.log("page not found");
-      }
-    };
     let isMounted = true;
     if (isMounted) fatchMovies();
     return () => {
       isMounted = false;
     };
-  }, [Page, GenreForUrl]);
+  }, 
+  // eslint-disable-next-line 
+  [Page, GenreForUrl]);
   return (
     <>
       <h2 className="pageTittle"> movie</h2>

@@ -14,7 +14,7 @@ export default function MainNavbar() {
   const history = useHistory();
   useEffect(() => {
     if (Value === 0) history.push("/");
-  }, [Value, history]);
+  }, [Value,history]);
   return (
     <div className="navbar">
       <ul>

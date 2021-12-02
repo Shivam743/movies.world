@@ -8,24 +8,27 @@ export default function Trending() {
   const [Content, setContent] = useState([]);
   const [TotalPage, setTotalPage] = useState(1);
 
+  const fatchTrending = async () => {
+    // eslint-disable-next-line
+    try {
+      const { data } = await axios.get(`
+          https://api.themoviedb.org/3/trending/all/week?api_key=c75430675bfaac5554a02c34599115cc&page=${Page}`);
+      setContent(data.results);
+      setTotalPage(data.total_pages);
+    } catch (error) {
+      console.log("page not found", error);
+    }
+  };
   useEffect(() => {
-    let isMounted = true;  
-    const fatchTrending = async () => {
-      // eslint-disable-next-line
-      try {
-        const { data } = await axios.get(`
-            https://api.themoviedb.org/3/trending/all/week?api_key=c75430675bfaac5554a02c34599115cc&page=${Page}`);
-  
-        setContent(data.results);
-        setTotalPage(data.total_pages);
-      } catch (error) {
-        console.log("page not found",error)
-      }
-    };
-    if(isMounted)fatchTrending();
+    let isMounted = true;
 
-    return ()=> {isMounted=false}
-  }, [Page]);
+    if (isMounted) fatchTrending();
+    return () => {
+      isMounted = false;
+    };
+  },
+  // eslint-disable-next-line 
+  [Page]);
   return (
     <>
       <h2 className="pageTittle"> trending</h2>

@@ -28,20 +28,26 @@ const Carousel = ({ media_type, id }) => {
     1024: { items: 7 },
   };
 
+  const fetchImage = async () => {
+    try {
+      const { data } = await axios.get(
+        `https://api.themoviedb.org/3/${media_type}/${id}/credits?api_key=c75430675bfaac5554a02c34599115cc&language=en-US`
+      );
+      setCreadits(data.cast);
+    } catch (error) {
+      console.log("error found", error);
+    }
+  };
   useEffect(() => {
-    const fetchImage = async () => {
-        try {
-            
-            const { data } = await axios.get(
-              `https://api.themoviedb.org/3/${media_type}/${id}/credits?api_key=c75430675bfaac5554a02c34599115cc&language=en-US`
-            );
-            setCreadits(data.cast);
-        } catch (error) {
-            console.log("error found",error)
-        }
+    let isMounted = true;
+    if (isMounted) fetchImage();
+
+    return () => {
+      isMounted = false;
     };
-    fetchImage();
-  }, [id,media_type]);
+  }, 
+  // eslint-disable-next-line 
+  [id, media_type]);
 
   return (
     <AliceCarousel

@@ -6,34 +6,41 @@ export default function Genres(props) {
     props.setSelectedGenres([...props.SelectedGenres, val]);
     props.setPage(1);
     let temp = [...props.Genres];
-    temp.splice(idx, 1);
-   
-    props.setGenres(temp);
+    let check = temp.splice(idx, 1);
+    if (check) props.setGenres(temp);
   };
 
   const HendleRemove = (val, idx) => {
     props.setPage(1);
     let temp = [...props.SelectedGenres];
     const deletedval = temp.splice(idx, 1);
-    props.setSelectedGenres(temp);
-    props.setGenres((prev) => [...deletedval, ...prev]);
+    if (deletedval) {
+      props.setSelectedGenres(temp);
+      props.setGenres((prev) => [...deletedval, ...prev]);
+    }
   };
 
-  
+  const fetchGenres = async () => {
+    try {
+      const { data } = await axios.get(
+        `https://api.themoviedb.org/3/genre/${props.type}/list?api_key=c75430675bfaac5554a02c34599115cc&language=en-US`
+      );
+      props.setGenres(data.genres);
+    } catch (error) {
+      console.log("error found");
+    }
+  };
   useEffect(() => {
-    const fetchGenres = async () => {
-      try {
-        const { data } = await axios.get(
-          `https://api.themoviedb.org/3/genre/${props.type}/list?api_key=c75430675bfaac5554a02c34599115cc&language=en-US`
-        );
-        props.setGenres(data.genres);
-      } catch (error) {
-        console.log("error found");
-      }
+    let isMounted = true;
+    if (isMounted) {
+      fetchGenres();
+    }
+    return () => {
+      isMounted = false;
     };
-    fetchGenres();
-    return props.setGenres([]);
-  }, [props]);
+  },
+  // eslint-disable-next-line 
+  []);
   return (
     <div className="chipOfGenres">
       <ul>

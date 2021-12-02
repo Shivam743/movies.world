@@ -9,24 +9,34 @@ export default function Search() {
   const [searchText, setSearchText] = useState("");
   const [TotalPage, setTotalPage] = useState(1);
   const [page, setPage] = useState(0);
-  const [type, setType] = useState("");
+  const [type, setType] = useState("select type");
   const [Content, setContent] = useState([]);
 
-  useEffect(() => {
-    const fetchSearch = async () => {
-      try {
-        const { data } = await axios.get(
-          `https://api.themoviedb.org/3/search/${type}?api_key=c75430675bfaac5554a02c34599115cc&language=en-US&query=${searchText}&page=${page}&include_adult=false`
-        );
-  
-        setTotalPage(data.total_pages);
-        setContent(data.results);
-      } catch (error) {
-        console.log("error found", error);
+  const fetchSearch = async () => {
+    try {
+      const { data } = await axios.get(
+        `https://api.themoviedb.org/3/search/${type}?api_key=c75430675bfaac5554a02c34599115cc&language=en-US&query=${searchText}&page=${page}&include_adult=false`
+      );
+
+      setTotalPage(data.total_pages);
+      setContent(data.results);
+    } catch (error) {
+      console.log("ERR found", error);
+    }
+  };
+  useEffect(
+    () => {
+      let isMounted = true;
+      if (isMounted && searchText && page && type) {
+        fetchSearch();
       }
-    };
-    fetchSearch();
-  }, [page, type, searchText]);
+      return () => {
+        isMounted = false;
+      };
+    },
+    // eslint-disable-next-line
+    [page, type, searchText]
+  );
   return (
     <>
       <select
@@ -44,7 +54,11 @@ export default function Search() {
         }}
         required
       >
-        <option>select type</option>
+        {type === "select type" ? (
+          <option value="select type">select type</option>
+        ) : (
+          ""
+        )}
         <option value="movie">movie</option>
         <option value="tv">tv show</option>
       </select>
@@ -63,7 +77,9 @@ export default function Search() {
           style={{ flex: "10", margin: "0px 2vw 0px 4vw", borderRadius: "5px" }}
         />
         <button
-          onClick={() => (type ? setPage(1) : alert("select type"))}
+          onClick={() =>
+            type !== "select type" ? setPage(1) : alert("select type")
+          }
           style={{
             fontSize: "2rem",
             margin: "0px 3vw 0px 1vw",
@@ -111,7 +127,7 @@ export default function Search() {
         ) : (
           <h2>
             {" "}
-            {type} movie{type === "movie" ? "" : "show"} not found
+            {type} {type === "movie" ? "" : "show"} not found
           </h2>
         )}
       </div>
