@@ -1,0 +1,92 @@
+@import url("https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@700&family=Montserrat:wght@100&family=Open+Sans+Condensed:wght@300&display=swap");
+
+.mainCard_syle {
+  display: flex;
+  justify-content: space-evenly;
+}
+.poster_info_page {
+  width: 30%;
+  overflow: hidden;
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.3) inset,
+    0 1px 4px rgba(0, 0, 0, 0.6) inset;
+}
+.poster_info_page img {
+  width: 98%;
+  height: 99%;
+  border-radius: 15px;
+}
+.movieDeatails {
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-radius: 30px;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.3) inset,
+    0 1px 4px rgba(0, 0, 0, 0.6) inset;
+}
+.ul {
+  display: flex;
+  flex-direction: column;
+}
+.list {
+  padding: 3px 60px;
+}
+a {
+  text-decoration: none;
+  color: white;
+  padding: 5px;
+  margin-bottom: 10px;
+  background-color: green;
+  text-transform: capitalize;
+  border-radius: 5px;
+  letter-spacing: 1px;
+}
+.movieName {
+  font-family: "Montserrat", sans-serif;
+  font-weight: bold;
+}
+.btn {
+  width: 600px;
+  /* padding: 2px 20%; */
+  margin: 10px 20px;
+  background-color: rgb(34, 34, 61);
+  color: rgb(55, 0, 255);
+  text-transform: uppercase;
+  border-radius: 5px;
+  padding: 3px;
+  border: 1px solid white;
+  border-bottom-style: outset;
+  border-right-style: outset;
+  border-top-style: inset;
+  border-left-style: inset;
+}
+@media (max-width: 600px) {
+  .mainCard_syle {
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+  }
+  .poster_info_page {
+    width: 70%;
+    aspect-ratio: 11/12;
+    margin-bottom: 10px;
+  }
+  .poster_info_page img {
+    aspect-ratio: 11/12;
+  }
+  .movieDeatails {
+    width: 90%;
+  }
+  .movieDeatails {
+    justify-content: space-evenly;
+    min-height: 50vh;
+  }
+  .list {
+    padding: 3px 10px;
+  }
+}
